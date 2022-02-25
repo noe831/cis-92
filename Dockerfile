@@ -11,14 +11,14 @@ COPY app/mysite/ /app
 
 WORKDIR /app
 
+#make entrypoint file executable
+RUN chmod +x entrypoint.sh
+
 #ENV MODE=Debug
 
-ENTRYPOINT ["/bin/bash"]#["entrypoint.sh"]
-CMD ["-c", "python3 ./manage.py runserver 0.0.0.0:8000"]
-#"set -e", "python3 ./manage.py migrate ", 
-#    "python3 ./manage.py createsuperuser --no-input --email $DJANGO_ADMIN_EMAIL --username $DJANGO_ADMIN_USERNAME || true",
-#    "python3 ./manage.py runserver 0.0.0.0:8000"]#"ls -la"]
-
-#USER 
-
 EXPOSE 8000
+
+# entrypoint is bash
+ENTRYPOINT ["bash"]
+# cmd is entrypoint shell script
+CMD ["-c", "./entrypoint.sh"]
